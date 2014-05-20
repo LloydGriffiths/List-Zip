@@ -1,4 +1,5 @@
 INSTALLATION
+
     perl Makefile.PL
     make test install clean
 

@@ -93,7 +93,9 @@ The structure of the list returned by zipping the above is:
 Converts this list into multiple lists, each containing the corresponding elements from each of the
 input lists.
 
-    my (@unzipped) = List::Zip->unzip([ 1, 'one', 'a' ], [ 2 , 'two', 'b' ], [ 3, 'three', 'c' ]);
+    my (@unzipped) = List::Zip->unzip(
+        [ 1, 'one', 'a' ], [ 2 , 'two', 'b' ], [ 3, 'three', 'c' ]
+    );
 
 The structure of the list returned by unzipping the above is:
 
