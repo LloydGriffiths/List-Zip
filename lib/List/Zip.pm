@@ -18,25 +18,13 @@ sub unzip {
 }
 
 sub _prune {
-    my ($cutoff, @pruned) = (__cutoff(@_), ());
+    my $cutoff = _cutoff(@_);
 
-    for (@_) {
-        push @pruned, $_ if @{ $_ } == $cutoff;
-        push @pruned, [ splice @{ $_ }, 0, $cutoff ] if @{ $_ } > $cutoff;
-    }
-
-    return @pruned;
+    return map { @{ $_ } == $cutoff ? $_ : [ splice @{ $_ }, 0, $cutoff ] } @_;
 }
 
-sub __cutoff {
-    my $cutoff;
-
-    for (@_) {
-        $cutoff = scalar @{ $_ } unless defined $cutoff;
-        $cutoff = scalar @{ $_ } if @{ $_ } < $cutoff;
-    }
-
-    return $cutoff;
+sub _cutoff {
+    return (sort map { scalar @{ $_ } } @_)[0];
 }
 
 1;
