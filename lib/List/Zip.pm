@@ -3,7 +3,7 @@ package List::Zip;
 use strict;
 use warnings;
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 sub zip {
     my ($class, @pruned) = (shift, _prune(@_));
