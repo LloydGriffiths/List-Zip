@@ -4,7 +4,8 @@ WriteMakefile(
     NAME         => 'List::Zip',
     VERSION_FROM => 'lib/List/Zip.pm',
     AUTHOR       => 'Lloyd Griffiths (lloydg@cpan.org)',
-    ABSTRACT     => 'Module to zip and unzip lists',
+    ABSTRACT     => 'Module to zip lists',
+    LICENSE      => 'perl',
     PREREQ_PM    => {
         'Test::Simple' => 0.44,
     },

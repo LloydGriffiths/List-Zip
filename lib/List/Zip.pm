@@ -3,18 +3,12 @@ package List::Zip;
 use strict;
 use warnings;
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 sub zip {
     my ($class, @pruned) = (shift, _prune(@_));
 
     return map { [ map { shift @{ $_ } } @pruned ] } 0 .. $#{ $pruned[0] };
-}
-
-sub unzip {
-    my ($class, @pruned) = (shift, _prune(@_));
-
-    return map { [ map { shift $pruned[$_] } 0 .. $#pruned ] } 0 .. $#{ $pruned[0] };
 }
 
 sub _prune {
@@ -35,16 +29,16 @@ __END__
 
 =head1 NAME
 
-List::Zip - Module to zip and unzip lists.
+List::Zip - Module to zip lists.
 
 =head1 DESCRIPTION
 
-Provides subroutines to zip and unzip lists. Each subroutine provided returns a list formed from
+Provides functionality to zip lists. The provided subroutine returns a list formed from
 the input lists.
 
 L<List::MoreUtils> also provides functionality to C<mesh> lists. However, this implementation
-differs. If the lists passed to C<zip> or C<unzip> have different sizes all the the lists will
-be truncated to the same size as the smallest list.
+differs. If the lists passed to C<zip> have different sizes all the the lists will be truncated to
+the same size as the smallest list.
 
 =head1 SYNOPSIS
 
@@ -59,7 +53,9 @@ be truncated to the same size as the smallest list.
     say $zipped[1]->[0]; # 2
     say $zipped[1]->[1]; # two
 
-    my @unzipped = List::Zip->unzip(@zipped);
+    # We can get back to the original structure before zipping by zipping
+    # the list again with no additional lists
+    my @unzipped = List::Zip->zip(@zipped);
 
     say for @{ $unzipped[0] }; # 1 2 3 4 5
     say for @{ $unzipped[1] }; # one two three four five
@@ -70,24 +66,11 @@ be truncated to the same size as the smallest list.
 
 Converts this list by combining corresponding elements from the input lists into lists.
 
-    my $zipped = List::Zip->zip([ 1 .. 5], [ 6 .. 10 ]);
+    my $zipped = List::Zip->zip([ 1 .. 5 ], [ 6 .. 10 ]);
 
 The structure of the list returned by zipping the above is:
 
     [ 1, 6 ], [ 2, 7 ], [ 3, 8 ], [ 4, 9 ], [ 5, 10 ]
-
-=head3 unzip
-
-Converts this list into multiple lists, each containing the corresponding elements from each of the
-input lists.
-
-    my @unzipped = List::Zip->unzip(
-        [ 1, 'one', 'a' ], [ 2 , 'two', 'b' ], [ 3, 'three', 'c' ]
-    );
-
-The structure of the list returned by unzipping the above is:
-
-    [ 1, 2, 3 ], [ 'one', 'two', 'three' ], [ 'a', 'b' ,'c' ]
 
 =head1 EXPORTS
 
@@ -95,11 +78,12 @@ None. Methods provided by this module are class methods so should be invoked
 by the class.
 
     List::Zip->zip(@lists);
-    List::Zip->unzip(@lists);
 
 =head1 SEE ALSO
 
 L<List::MoreUtils>
+
+L<List::Gen>
 
 =head1 AUTHOR
 
