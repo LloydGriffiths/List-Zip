@@ -1,5 +1,8 @@
 Revision history for Perl module List::Zip
 
+0.03 Mon May 26 2014
+    - Removed unzip functionality
+
 0.02 Mon May 26 2014
     - Optimizations relating to cutoff point computation and
       list pruning
