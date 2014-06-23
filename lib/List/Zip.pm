@@ -3,7 +3,7 @@ package List::Zip;
 use strict;
 use warnings;
 
-our $VERSION = '0.03';
+our $VERSION = '0.04';
 
 sub zip {
     my ($class, @arrays) = @_;
