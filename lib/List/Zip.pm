@@ -3,22 +3,16 @@ package List::Zip;
 use strict;
 use warnings;
 
-our $VERSION = '0.03';
+our $VERSION = '0.04';
 
 sub zip {
-    my ($class, @pruned) = (shift, _prune(@_));
+    my ($class, @arrays) = @_;
 
-    return map { [ map { shift @{ $_ } } @pruned ] } 0 .. $#{ $pruned[0] };
-}
-
-sub _prune {
-    my $cutoff = _cutoff(@_);
-
-    return map { @{ $_ } == $cutoff ? $_ : [ splice @{ $_ }, 0, $cutoff ] } @_;
+    return map { [ map { shift @{ $_ } } @arrays ] } 0 .. _cutoff(@arrays);
 }
 
 sub _cutoff {
-    return (sort map { scalar @{ $_ } } @_)[0];
+    return ((sort map { scalar @{ $_ } } @_)[0] - 1);
 }
 
 1;
