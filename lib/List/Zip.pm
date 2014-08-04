@@ -12,7 +12,7 @@ sub zip {
 }
 
 sub _cutoff {
-    return ((sort map { scalar @{ $_ } } @_)[0] - 1);
+    return (sort map { $#{ $_ } } @_)[0];
 }
 
 1;
