@@ -6,7 +6,7 @@ use Test::More;
 
 my @sizes = (2, 5, 10, 50, 100, 500);
 
-subtest 'zips arrays of even size' => sub {
+subtest 'zips lists of even size' => sub {
     for my $size (@sizes) {
         # Zip lists that contain the same values so that we end up
         # with a simple test structure.
@@ -18,7 +18,7 @@ subtest 'zips arrays of even size' => sub {
     }
 };
 
-subtest 'zips arrays of uneven size' => sub {
+subtest 'zips lists of uneven size' => sub {
     for my $size (@sizes) {
         # Create lists with different sizes. Minimum size set to
         # ten. These lists will be truncated to the same size and
@@ -32,6 +32,21 @@ subtest 'zips arrays of uneven size' => sub {
             is $zipped->[0], $zipped->[$_] for 1 .. $#{ $zipped };
         }
     }
+};
+
+subtest 'zips nested lists correctly' => sub {
+    my @zipped1 = List::Zip->zip(map { [ 0 .. $sizes[0] ] } 0 .. $#sizes);
+    my @zipped2 = List::Zip->zip(
+        [ 0 .. $sizes[0] ], [ @zipped1 ]
+    );
+
+    # Create a list of the same structure as @zipped2 by creating a number
+    # of lists equal to 0 .. $sizes[0]. Then generate a nested list with the size of
+    # @sizes which only contains identical values which are the same as the value in
+    # the outer list.
+    is_deeply \@zipped2, [ map {
+        [ $_, [ map { int $_ } split '', $_ x scalar @sizes ] ]
+    } 0 .. $sizes[0] ];
 };
 
 done_testing;
