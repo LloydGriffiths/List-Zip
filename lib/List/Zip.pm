@@ -6,9 +6,9 @@ use warnings;
 our $VERSION = '0.04';
 
 sub zip {
-    my ($class, @arrays) = @_;
+    my ($class, @lists) = @_;
 
-    return map { [ map { shift @{ $_ } } @arrays ] } 0 .. _cutoff(@arrays);
+    return map { [ map { shift @{ $_ } } @lists ] } 0 .. _cutoff(@lists);
 }
 
 sub _cutoff {
