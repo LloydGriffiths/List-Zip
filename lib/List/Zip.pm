@@ -27,12 +27,12 @@ List::Zip - Module to zip lists.
 
 =head1 DESCRIPTION
 
-Provides functionality to zip lists. The provided subroutine returns a list formed from
-the input lists.
+Provides functionality to zip lists. The provided subroutine returns a list formed
+from the input lists.
 
-L<List::MoreUtils> also provides functionality to C<mesh> lists. However, this implementation
-differs. If the lists passed to C<zip> have different sizes all the the lists will be truncated to
-the same size as the smallest list.
+L<List::MoreUtils> also provides functionality to C<mesh> lists. However, this
+implementation differs. If the lists passed to C<zip> have different sizes all the
+the lists will be truncated to the same size as the smallest list.
 
 =head1 SYNOPSIS
 
@@ -58,7 +58,8 @@ the same size as the smallest list.
 
 =head3 zip
 
-Converts this list by combining corresponding elements from the input lists into lists.
+Converts this list by combining corresponding elements from the input lists into
+lists.
 
     my $zipped = List::Zip->zip([ 1 .. 5 ], [ 6 .. 10 ]);
 

@@ -9,12 +9,12 @@ NAME
 
 DESCRIPTION
 
-    Provides functionality to zip lists. The provided subroutine returns a list formed from
-    the input lists.
+    Provides functionality to zip lists. The provided subroutine returns a list
+    formed from the input lists.
 
-    List::MoreUtils also provides functionality to mesh lists. However, this implementation
-    differs. If the lists passed to zip have different sizes all the the lists will be truncated to
-    the same size as the smallest list.
+    List::MoreUtils also provides functionality to mesh lists. However, this
+    implementation differs. If the lists passed to zip have different sizes all the
+    the lists will be truncated to the same size as the smallest list.
 
 SYNOPSIS
 
@@ -38,7 +38,8 @@ SYNOPSIS
 
 METHODS
 
-    zip - Converts this list by combining corresponding elements from the input lists into lists.
+    zip - Converts this list by combining corresponding elements from the input
+    lists into lists.
 
         my $zipped = List::Zip->zip([ 1 .. 5 ], [ 6 .. 10 ]);
 
