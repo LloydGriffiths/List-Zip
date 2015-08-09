@@ -8,6 +8,7 @@ WriteMakefile(
     LICENSE          => 'perl',
     MIN_PERL_VERSION => '5.006000',
     PREREQ_PM  => {
+        'parent'       => 0,
         'Test::Simple' => 0.44,
     },
     META_MERGE => {

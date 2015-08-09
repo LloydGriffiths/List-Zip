@@ -18,9 +18,9 @@ DESCRIPTION
 
 SYNOPSIS
 
-    use List::Zip;
+    use List::Zip q(zip);
 
-    my @zipped = List::Zip->zip(
+    my @zipped = zip(
         [ 1, 2, 3, 4, 5 ], [ 'one', 'two', 'three', 'four', 'five' ]
     );
 
@@ -31,17 +31,17 @@ SYNOPSIS
 
     # We can get back to the original structure before zipping by zipping
     # the list again with no additional lists
-    my @unzipped = List::Zip->zip(@zipped);
+    my @unzipped = zip(@zipped);
 
     say for @{ $unzipped[0] }; # 1 2 3 4 5
     say for @{ $unzipped[1] }; # one two three four five
 
-METHODS
+FUNCTIONS
 
     zip - Converts this list by combining corresponding elements from the input
     lists into lists.
 
-        my $zipped = List::Zip->zip([ 1 .. 5 ], [ 6 .. 10 ]);
+        my $zipped = zip([ 1 .. 5 ], [ 6 .. 10 ]);
 
     The structure of the list returned by zipping the above is:
 
@@ -49,10 +49,7 @@ METHODS
 
 EXPORTS
 
-    None. Methods provided by this module are class methods so should be invoked
-    by the class.
-
-    List::Zip->zip(@lists);
+None by default.
 
 SEE ALSO
 
@@ -65,7 +62,7 @@ AUTHOR
 
 COPYRIGHT
 
-    This software is copyright (c) 2014 by Lloyd Griffiths.
+    This software is copyright (c) 2014-2015 by Lloyd Griffiths.
 
     This is free software; you can redistribute it and/or modify it under the same
     terms as the Perl 5 programming language system itself.

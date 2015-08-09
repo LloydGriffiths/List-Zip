@@ -1,14 +1,17 @@
 package List::Zip;
 
+use parent q(Exporter);
 use strict;
 use warnings;
+
+our @EXPORT_OK = qw(
+    zip
+);
 
 our $VERSION = '0.04';
 
 sub zip {
-    my ($class, @lists) = @_;
-
-    return map { [ _map_elements(@lists) ] } 0 .. _cutoff(@lists);
+    return map { [ _map_elements(@_) ] } 0 .. _cutoff(@_);
 }
 
 sub _cutoff {
@@ -40,9 +43,9 @@ the lists will be truncated to the same size as the smallest list.
 
 =head1 SYNOPSIS
 
-    use List::Zip;
+    use List::Zip q(zip);
 
-    my @zipped = List::Zip->zip(
+    my @zipped = zip(
         [ 1, 2, 3, 4, 5 ], [ 'one', 'two', 'three', 'four', 'five' ]
     );
 
@@ -53,19 +56,19 @@ the lists will be truncated to the same size as the smallest list.
 
     # We can get back to the original structure before zipping by zipping
     # the list again with no additional lists
-    my @unzipped = List::Zip->zip(@zipped);
+    my @unzipped = zip(@zipped);
 
     say for @{ $unzipped[0] }; # 1 2 3 4 5
     say for @{ $unzipped[1] }; # one two three four five
 
-=head1 METHODS
+=head1 FUNCTIONS
 
 =head3 zip
 
 Converts this list by combining corresponding elements from the input lists into
 lists.
 
-    my $zipped = List::Zip->zip([ 1 .. 5 ], [ 6 .. 10 ]);
+    my $zipped = zip([ 1 .. 5 ], [ 6 .. 10 ]);
 
 The structure of the list returned by zipping the above is:
 
@@ -73,10 +76,7 @@ The structure of the list returned by zipping the above is:
 
 =head1 EXPORTS
 
-None. Methods provided by this module are class methods so should be invoked
-by the class.
-
-    List::Zip->zip(@lists);
+None by default.
 
 =head1 SEE ALSO
 
@@ -90,7 +90,7 @@ Lloyd Griffiths
 
 =head1 COPYRIGHT
 
-This software is copyright (c) 2014 by Lloyd Griffiths.
+This software is copyright (c) 2014-2015 by Lloyd Griffiths.
 
 This is free software; you can redistribute it and/or modify it under the same
 terms as the Perl 5 programming language system itself.
