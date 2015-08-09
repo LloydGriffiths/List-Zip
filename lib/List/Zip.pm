@@ -8,11 +8,15 @@ our $VERSION = '0.04';
 sub zip {
     my ($class, @lists) = @_;
 
-    return map { [ map { shift @$_ } @lists ] } 0 .. _cutoff(@lists);
+    return map { [ _map_elements(@lists) ] } 0 .. _cutoff(@lists);
 }
 
 sub _cutoff {
     return (sort map { $#$_ } @_)[0];
+}
+
+sub _map_elements {
+    return map { shift @$_ } @_;
 }
 
 1;
