@@ -1,0 +1,8 @@
+^\.
+.*/\.
+\.bak
+\.SKIP
+\.old
+^Makefile$
+README.pod
+MYMETA.*
