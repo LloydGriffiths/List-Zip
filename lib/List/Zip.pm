@@ -1,17 +1,25 @@
 package List::Zip;
 
-use parent q(Exporter);
 use strict;
 use warnings;
 
-our @EXPORT_OK = qw(
-    zip
-);
+use parent q(Exporter);
 
 our $VERSION = '0.04';
 
+our @EXPORT_OK = qw(
+    zip
+    zip_with
+);
+
 sub zip {
-    return map { [ _map_elements(@_) ] } 0 .. _cutoff(@_);
+    return zip_with(@_, sub { \@_ });
+}
+
+sub zip_with {
+    my ($f) = pop;
+
+    return map { $f->(_map_elements(@_)) } 0 .. _cutoff(@_);
 }
 
 sub _cutoff {
