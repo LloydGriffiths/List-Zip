@@ -19,7 +19,7 @@ sub zip {
 sub zip_with {
     my ($f) = pop;
 
-    return map { $f->(_map_elements(@_)) } 0 .. _cutoff(@_);
+    return map { $f->(_map_elements($_, @_)) } 0 .. _cutoff(@_);
 }
 
 sub _cutoff {
@@ -27,7 +27,9 @@ sub _cutoff {
 }
 
 sub _map_elements {
-    return map { shift @$_ } @_;
+    my ($index) = shift;
+
+    return map { $_->[$index] } @_;
 }
 
 1;
