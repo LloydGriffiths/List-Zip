@@ -23,7 +23,7 @@ sub zip_with {
 }
 
 sub _cutoff {
-    return (sort map { $#$_ } @_)[0];
+    return (sort { $a <=> $b } map { $#$_ } @_)[0];
 }
 
 sub _map_elements {
