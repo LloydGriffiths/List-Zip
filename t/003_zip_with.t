@@ -9,7 +9,7 @@ subtest 'zips lists of even size' => sub {
         my @range   = (1, 2, 4, 8);
         my @inputs  = (\@range, \@range);
         my @expects = map { $_ << 1 } @range;
-        my @actual  = zip_with(@inputs => sub { $_[0] + $_[1] });
+        my @actual  = zip_with(@inputs => sub { return $_[0] + $_[1] });
 
         is_deeply \@actual, \@expects;
     };
@@ -23,16 +23,16 @@ subtest 'zips lists of even size' => sub {
             [ qw(k n o) ],
         );
         my @expects = qw(quick brown hippo);
-        my @actual  = zip_with(@inputs => sub { join '', @_ });
+        my @actual  = zip_with(@inputs => sub { return join '', @_ });
 
         is_deeply \@actual, \@expects;
     };
 };
 
-subtest 'zips lists of uneven size' => sub {
+subtest 'unevenly sized lists are truncated' => sub {
     my @inputs  = ([ 1 .. 10 ], [ map { 1 } 1 .. 20 ]);
     my @expects = 1 .. 10;
-    my @actual  = zip_with(@inputs => sub { $_[0] * $_[1] });
+    my @actual  = zip_with(@inputs => sub { return $_[0] * $_[1] });
 
     is_deeply \@actual, \@expects;
 };

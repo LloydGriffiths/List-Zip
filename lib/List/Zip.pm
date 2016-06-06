@@ -44,32 +44,19 @@ List::Zip - Module to zip lists.
 
 =head1 DESCRIPTION
 
-Provides functionality to zip lists. The provided subroutine returns a list formed
-from the input lists.
+Provides functionality to zip list structures.
 
 L<List::MoreUtils> also provides functionality to C<mesh> lists. However, this
-implementation differs. If the lists passed to C<zip> have different sizes all the
+implementation differs. If the lists provided have different sizes all of the
 the lists will be truncated to the same size as the smallest list.
 
 =head1 SYNOPSIS
 
-    use List::Zip q(zip);
+    use List::Zip qw(zip zip_with);
 
-    my @zipped = zip(
-        [ 1, 2, 3, 4, 5 ], [ 'one', 'two', 'three', 'four', 'five' ]
-    );
-
-    say $zipped[0]->[0]; # 1
-    say $zipped[0]->[1]; # one
-    say $zipped[1]->[0]; # 2
-    say $zipped[1]->[1]; # two
-
-    # We can get back to the original structure before zipping by zipping
-    # the list again with no additional lists
-    my @unzipped = zip(@zipped);
-
-    say for @{ $unzipped[0] }; # 1 2 3 4 5
-    say for @{ $unzipped[1] }; # one two three four five
+    my @zipped      = zip([ 1, 2, 3, 4, 5 ], [ 'one', 'two', 'three', 'four', 'five' ]);
+    my @unzipped    = zip(@zipped);
+    my @zipped_with = zip_with([ 1, 2, 3 ], [ 4, 5, 6 ] => sub { return $_[0] + $_[1] });
 
 =head1 FUNCTIONS
 
@@ -78,11 +65,24 @@ the lists will be truncated to the same size as the smallest list.
 Converts this list by combining corresponding elements from the input lists into
 lists.
 
-    my $zipped = zip([ 1 .. 5 ], [ 6 .. 10 ]);
+    my @zipped = zip([ 1 .. 5 ], [ 6 .. 10 ]);
 
 The structure of the list returned by zipping the above is:
 
-    [ 1, 6 ], [ 2, 7 ], [ 3, 8 ], [ 4, 9 ], [ 5, 10 ]
+    ([ 1, 6 ], [ 2, 7 ], [ 3, 8 ], [ 4, 9 ], [ 5, 10 ])
+
+=head3 zip_with
+
+Converts this list by combining corresponding elements from the input lists into
+lists. The given function is applied to each combination of the corresponding elements.
+
+    my @zipped = zip_with([ qw(t f r f) ], [ qw(h a e o) ], [ qw(e t d x) ] => sub {
+        return join '', @_;
+    });
+
+The structure of the list returned by zipping with the above function applied is:
+
+    ('the', 'fat', 'red', 'fox')
 
 =head1 EXPORTS
 
@@ -100,7 +100,7 @@ Lloyd Griffiths
 
 =head1 COPYRIGHT
 
-This software is copyright (c) 2014-2015 by Lloyd Griffiths.
+This software is copyright (c) 2014-2016 by Lloyd Griffiths.
 
 This is free software; you can redistribute it and/or modify it under the same
 terms as the Perl 5 programming language system itself.
